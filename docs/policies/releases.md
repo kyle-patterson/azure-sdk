@@ -257,6 +257,8 @@ The Azure SDK team may choose to create a preview release for several reasons:
 - Testing and receiving feedback on new API designs
 - Stress and performance testing for new SDK features is incomplete
 
+**NOTE**: Microsoft-internal teams should refer to the Product Launch Readiness requirements at [aka.ms/plrcriteria](http://aka.ms/plrcriteria). SDK and CLI launch criteria are listed within the [Azure SDK Wiki](https://dev.azure.com/azure-sdk/internal/_wiki/wikis/internal.wiki/200/Azure-SDK-CLI-Product-Launch-Criteria).
+
 To create a preview, the release must:
 
 - Have initial documentation.
@@ -278,7 +280,7 @@ To create a preview, the release must:
 
 - All service features supported by the SDK must be publicly available.
 
-- Support for at least 2 languages.  Preferably, support one statically typed language (such as C# or Java) and one dynamically typed language (such as TypeScript or Python).
+- Support all four tier-1 languages in preview form (.NET, Java, Python, TypeScript) unless there is a good (and documented) reason to not include support for one of the languages.
 
 To graduate to GA, a preview release must:
 
