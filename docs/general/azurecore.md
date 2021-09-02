@@ -33,7 +33,44 @@ In general, the client library will only need to configure these policies.  Howe
 
 Client library usage telemetry is used by service teams (not consumers) to monitor what SDK language, client library version, and language/platform info a client is using to call into their service. Clients can prepend additional information indicating the name and version of the client application.
 
-{% include requirement/MUST id="azurecore-http-telemetry-useragent" %} send telemetry information in the [User-Agent header] using the following format:
+#### User Agent Client Hints
+{% include requirement/SHOULD id="azure-core-http-telemetry-clienthint-library" %} send telemetry information in the [User-Agent Client-Hints] `X-MS-UA-CH-Lib` header using the following format:
+
+```
+azsdk-<sdk_language>-<package_name>/<package_version> <platform_info>
+```
+- `<sdk_language>`: SDK's language name (all lowercase): "net", "python", "java", "js", "c", "cpp", "android", "ios", or "go"
+- `<package_name>`: client library package name as it appears to the developer, replacing slashes with dashes and removing the Azure indicator.  For example, "Security.KeyVault" (.NET), "security.keyvault" (Java), "keyvault" (JavaScript & Python)
+- `<package_version>`: the version of the package. Note: this is not the version of the service
+- `<platform_info>`: information about the currently executing language runtime and OS, e.g. "(NODE-VERSION v4.5.0; Windows_NT 10.0.14393)"
+
+{% include requirement/MUSTNOT id="azure-core-http-telemetry-clienthint-library-custom" %} allow custom information to be sent in the `X-MS-UA-CH-Lib` field.
+
+{% include requirement/MAY id="azure-core-http-telemetry-clienthint-spring" %} indicate if data is for Azure Spring Cloud using the [User-Agent Client-Hints] `X-MS-UA-CH-Spr` header in the following format:
+
+```
+<isSpring>
+```
+
+- `<isSpring>`: optional bitflag to indicate if the library is for Azure Spring Cloud
+
+{% include requirement/MUST id="azure-core-http-telemetry-clienthint-spring-custom" %} be either `0` (is not targeting Azure Spring Cloud) or `1` (is a library for Azure Spring Cloud).
+
+{% include requirement/MAY id="azure-core-http-telemetry-clienthint-applicationid" %} send application telemetry in the [User-Agent Client-Hints] `X-MS-UA-CH-AppId` header in the following format:
+
+```
+<application_id>
+```
+
+- `<application_id>`: optional application-specific string. May contain a slash, but must not contain a space. The string is supplied by the user of the client library, e.g. "AzCopy/10.0.4-Preview"
+
+{% include requirement/MUSTNOT id="azure-core-http-telemetry-clienthint-applicationid-custom" %} send personal or customer data (even encoded) in the `X-MS-UA-CH-AppId` field.
+
+#### User Agent string - _**Deprecated**_
+
+_Previous iterations of these guidelines allowed for the [User-Agent header] to emit telemetry. This method is discouraged and may be removed in future versions of these guidelines._
+
+{% include requirement/MAY id="azurecore-http-telemetry-useragent" %} send telemetry information in the [User-Agent header] using the following format:
 
 ```
 [<application_id> ]azsdk-<sdk_language>-<package_name>/<package_version> <platform_info>
@@ -53,6 +90,8 @@ For example, if we re-wrote `AzCopy` in each language using the Azure Blob Stora
 - (Python) `AzCopy/10.0.4-Preview azsdk-python-storage/4.0.0 Python/3.7.3 (Ubuntu; Linux x86_64; rv:34.0)`
 
 {% include requirement/MUST id="azurecore-http-telemetry-appid" %} allow the consumer of the library to set the application ID.  This allows the consumer to obtain cross-service telemetry for their app.  The application ID should be settable in the relevant `ClientOptions` object.
+
+{% include requirement/MUSTNOT id="azure-core-http-telemetry-personal-data %} include personal or customer data (even encoded) in the [User-Agent header].
 
 {% include requirement/MUST id="azurecore-http-telemetry-appid-length" %} enforce that the application ID is no more than 24 characters in length.  Shorter application IDs allows service teams to include diagnostic information in the "platform information" section of the user agent, while still allowing the consumer to obtain telemetry information for their own application.
 
@@ -267,6 +306,7 @@ OAuth token authentication, obtained via Managed Security Identities (MSI) or Az
 {% include refs.md %}
 
 [User-Agent header]: https://tools.ietf.org/html/rfc7231#section-5.5.3
+[User-Agent Client-Hints]: https://wicg.github.io/ua-client-hints/
 [Transient fault handling]: https://docs.microsoft.com/azure/architecture/best-practices/transient-faults
 [OpenTelemetry]: https://opentelemetry.io/
 [Azure Monitor]: https://azure.microsoft.com/services/monitor/
