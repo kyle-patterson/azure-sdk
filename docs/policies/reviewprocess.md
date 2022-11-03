@@ -17,14 +17,13 @@ Note that the library review process described here is currently an **internal**
 
 ## API Review Process Roadmap
 
-Typically, there will be a minimum of three meetings with the Architecture Board:
+Typically, there will be three meetings with the Architecture Board:
 
-1.	Introductory session
-2.	API reviews
-3.	API Sign Off
+1. Introductory session
+2. API reviews
+3. API Sign Off
 
-
-Depending on the library surface and other factors, more than one API reviews may be needed.
+Depending on the library surface and other factors, more than one API review may be needed.
 
 Create an epic using the “Record of Architecture Board Approval for Release” issue template to track reviews and approvals. The release manager will ask for a link to this issue as part of the PLR.
 
@@ -34,23 +33,24 @@ It’s critical that library owners engage with the architecture board early eno
 
     These changes should be discussed in an architecture board meeting at least three times. See “Types of Review Meetings and What to Prepare” section below.
 
-
 2. **Small, targeted changes and bug fixes**
 
     See “Getting approval for small, targeted changes and bug fixes” section below.
 
 If you are unsure which path applies to the work you are doing, you should consult with a language architect for guidance.
 
-
 ## Types of Review Meetings and What to Prepare
 
-[Submit an issue](https://github.com/Azure/azure-sdk/issues/new/choose) to the Architecture Board to request for a meeting. If the service is pre-release and not yet publicly disclosed, use the private repository ([azure-sdk-pr](https://github.com/Azure/azure-sdk-pr)). After creating the issue, email the [Architecture Board](mailto:azsdkarch@microsoft.com) to communicate specific requests such as scheduling, invite lists, etc.
+[Submit an issue](https://github.com/Azure/azure-sdk/issues/new/choose) to the Architecture Board to request for a meeting. If the service is pre-release and not yet publicly disclosed, use the private repository ([azure-sdk-pr](https://github.com/Azure/azure-sdk-pr)). For any specific requests such as scheduling, invite lists, etc., email the requests along with the submitted issue to the [Architecture Board Helpdesk](mailto:azsdkarch-help@microsoft.com).
 
 Depending on the type of review, use the appropriate template to create the issue. Ensure that you included everything the issue template asks for and in the correct format.
 
+### Scheduling timelines
+The Architecture Board Helpdesk operates with a 3-business day response timeline for any new issues or emailed requests. Reviews for the Architecture Board typically schedule several weeks in advance, depending on the volume of requests received.
+
 ### 1. Introductory Session
 
-This purely informational/educational to let the board get up to speed with the service and the library/new features that are coming. This allows for early feedback and will potentially affect the service design. High level topics such as API namespaces, function names, and types will be suggested in this first discussion.
+This informational/educational session will help the board get up to speed with the service and the library/new features that are coming. This allows for early feedback and will potentially affect the service design. High level topics such as API namespaces, function names, and types will be suggested in this first discussion.
 
 **What to bring (include the following in GitHub issue requesting for review)**:
 * Service introduction material
@@ -58,7 +58,7 @@ This purely informational/educational to let the board get up to speed with the 
     * Some teams also prepare a PowerPoint introductions
 * Link to the service REST APIs, if applicable/available.
 * Champion scenario samples
-    * Code is appreciated but optional. Pseudocode is fine.
+    * Code demonstrating how customers would be expected to engage with the API is **strongly encouraged**. This sample code may uploaded to ApiView or provided in the issue.
     * See “Champion scenarios” section below for definition
     * [Sample example](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/textanalytics/Azure.AI.TextAnalytics/samples/Sample1_DetectLanguage.md)
         * Should be added to library’s sample folder ([example](https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/textanalytics/Azure.AI.TextAnalytics/samples))
@@ -87,7 +87,7 @@ Depending on the situation and service, more than one API review may be needed (
 
 **What to bring (include the following in GitHub issue requesting for review):**
 * Links to the API Listings for each language reviewed
-  * Be sure to provide these at least **5 business days before** the intended review date so architects have time to review before the meeting
+  * Be sure to provide these at least **5 business days before** the intended review date so architects have time to review before the meeting.
 * Code samples for each champion scenario
 * Quickstart samples
 
